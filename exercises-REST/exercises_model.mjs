@@ -9,11 +9,11 @@ mongoose.connect(
 const db = mongoose.connection;
 
 const exerciseSchema = mongoose.Schema({
-    name: { type: String, requried: true},
-    reps: { type: Number, requried: true},
-    weight: { type: Number, requried: true},
-    unit: { type: String, requried: true},
-    date: { type: String, requried: true}
+    name: { type: String, required: true, minlength: 1},
+    reps: { type: Number, required: true, min: 1},
+    weight: { type: Number, required: true, min: 1},
+    unit: { type: String, required: true, enum: ['kgs', 'lbs']},
+    date: { type: String, required: true}
 });
 
 const Exercise = mongoose.model("Exercise", exerciseSchema);

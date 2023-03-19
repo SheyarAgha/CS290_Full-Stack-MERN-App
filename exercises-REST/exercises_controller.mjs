@@ -9,21 +9,26 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 
-app.post("/", (req, res) => {
+function isDateValid(date) {
+    const format = /^\d\d-\d\d-\d\d$/;
+    return format.test(date);
+};
+
+app.post("/exercises", (req, res) => {
     exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(exercise => {
             res.status(201).json(exercise);
         })
         .catch(error => {
             console.error(error);
-            res.status(400).json({ Error: 'Request failed' });
+            res.status(400).json({ Error: 'Invalid request' });
         });
 });
 
 app.get("/exercises", (req, res) => {
     exercises.getAllExercises()
         .then(exercises => {
-            res.send(exercises);
+            res.status(200).send(exercises);
         })
         .catch(error => {
             console.error(error);
@@ -47,18 +52,22 @@ app.get("/exercises/:_id", (req, res) => {
 });
 
 app.put("/exercises/:_id", (req, res) => {
-    exercises.replaceExercise(req.params._id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
-        .then(numUpdated => {
-            if (numUpdated === 1) {
-                res.json({ _id: req.params._id, name: req.body.name, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, date: req.body.date })
-            } else {
-                res.status(404).json({ Error: 'Resource not found' });
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(400).json({ Error: 'Request failed' });
-        });
+    if (isDateValid(req.body.date)) {
+        exercises.replaceExercise(req.params._id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
+            .then(numUpdated => {
+                if (numUpdated === 1) {
+                    res.json({ _id: req.params._id, name: req.body.name, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, date: req.body.date })
+                } else {
+                    res.status(404).json({ Error: 'Resource not found' });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                res.status(400).json({ Error: 'Invalid request' });
+            });
+    } else {
+        res.status(400).json({ Error: 'Invalid request' });
+    }
 });
 
 app.delete("/exercises/:_id", (req, res) => {
