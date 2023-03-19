@@ -28,6 +28,7 @@ function App() {
             <Route path="/CreateExercise" element={<CreateExercise/>}></Route>
           </Routes>
         </Router>
+        <br></br>
       <footer className="App-footer">
         <p>© 2023 Sheyar Abdullah</p>
       </footer>

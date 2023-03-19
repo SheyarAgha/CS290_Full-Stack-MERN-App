@@ -47,11 +47,11 @@ function CreateExercise() {
                 placeholder="Enter weight"
                 value={weight}
                 onChange={e => setWeight(e.target.value)} />
-            <input
-                type="text"
-                placeholder="Enter unit"
-                value={unit}
-                onChange={e => setUnit(e.target.value)} />
+            <select value={unit} onChange={e => setUnit(e.target.value)}>
+                <option value=''>Select a unit</option>
+                <option value='lbs'>lbs</option>
+                <option value='kgs'>kgs</option>
+            </select>
             <input
                 type="text"
                 placeholder="Enter date"

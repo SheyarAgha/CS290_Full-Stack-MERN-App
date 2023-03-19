@@ -10,17 +10,49 @@ body {
   border-style: solid;
 }
 
+input, button, select {
+  font-family: 'Trebuchet MS';
+}
+
 table {
   margin-left: auto;
   margin-right: auto;
+  border: 3px;
+  border-style: solid;
+  border-color: white;
 }
 
 th {
   text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: whitesmoke;
+  background-color: rgb(60, 151, 255);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
 }
 
 td {
   text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: whitesmoke;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: purple;
+}
+
+.Link {
+  border: whitesmoke;
+  border-style: solid;
+  padding: 5px;
+  line-height: 50px;
+  background-color: rgb(32, 176, 174);
 }
 
 .App {

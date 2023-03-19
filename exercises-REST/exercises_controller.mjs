@@ -14,6 +14,16 @@ function isDateValid(date) {
     return format.test(date);
 };
 
+function isValid(name, reps, weight, unit, date) {
+    return (
+        isDateValid(date) &&
+        name.length > 0 &&
+        reps > 0 &&
+        weight > 0 &&
+        (unit === 'lbs' || unit === 'kgs')
+    )
+};
+
 app.post("/exercises", (req, res) => {
     exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(exercise => {
@@ -52,7 +62,7 @@ app.get("/exercises/:_id", (req, res) => {
 });
 
 app.put("/exercises/:_id", (req, res) => {
-    if (isDateValid(req.body.date)) {
+    if (isValid(req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)) {
         exercises.replaceExercise(req.params._id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
             .then(numUpdated => {
                 if (numUpdated === 1) {
